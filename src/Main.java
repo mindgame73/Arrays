@@ -1,8 +1,9 @@
 import java.io.File;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Main extends Arrays {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // Commit from PCs
         File inputFile = new File("input.txt");
         File dataFile = new File("data.txt");
@@ -20,6 +21,7 @@ public class Main extends Arrays {
         // интерактивный данные в консоль вводятся, выводятся туда же
         else
         {
+            System.out.println("");
             Scanner scanner = new Scanner(System.in);
             System.out.print("Input numbers of rows: ");
             int a = scanner.nextInt();
@@ -36,17 +38,54 @@ public class Main extends Arrays {
                 System.out.println();
             }
 
-            //print(sort(arr));
-            System.out.println("Максимальный элемент массива - " + maxNumber(arr));
-            System.out.println("Минимальный элемент массива - " + minNumber(arr));
-            System.out.println(getCell(arr));
-            System.out.println("Сумма массива: " + getSumOfArray(arr));
+            System.out.println("Enter operation number : \n 0. - Exit \n 1. - Print \n 2. - Sort and Print \n 3. - Dimension of array \n 4. - Max and Min numbers in array " +
+                    "\n 5. - Get cell \n 6. - Get sum of array \n 7. - Get even elements \n 8. - Get odd elements ");
 
-            System.out.print("Четные элементы массива: ");
-            getEven(arr).forEach(x -> System.out.print(x.toString() + " "));
-            System.out.println();
-            System.out.print("Нечетные элементы массива: ");
-            getOdd(arr).forEach(x -> System.out.print(x.toString() + " "));
+            String answr = answr = scanner.nextLine();
+            while (!answr.equals("0")) {
+                answr = scanner.nextLine();
+                switch (answr) {
+                    case "1":
+                        print(arr);
+                        break;
+                    case "2":
+                        print(sort(arr));
+                        break;
+                    case "3":
+                        System.out.println("Dimension is " + arr.length + "x" + arr[1].length);
+                        break;
+                    case "4":
+                        System.out.println("Max number is - " + maxNumber(arr));
+                        System.out.println("Min number is - " + minNumber(arr));
+                        break;
+                    case "5":
+                        System.out.println(getCell(arr));
+                        break;
+                    case "6":
+                        System.out.println("Sum of array: " + getSumOfArray(arr));
+                        break;
+                    case "7":
+                        System.out.println("Even elements : ");
+                        getEven(arr).forEach(x -> System.out.print(x.toString() + " "));
+                        System.out.println();
+                        break;
+                    case "8":
+                        System.out.println("Odd elements: ");
+                        getOdd(arr).forEach(x -> System.out.print(x.toString() + " "));
+                        System.out.println();
+                        break;
+                    case "0":
+                        break;
+                    case "cls":
+                        Runtime.getRuntime().exec("cls");
+                    default:
+                        System.out.println("Invalid operation");
+                        break;
+
+                }
+            }
+
+
         }
 
     }
