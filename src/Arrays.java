@@ -1,3 +1,6 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -26,14 +29,28 @@ public class Arrays {
     }
 
 
-    static void print (int[][] arr){
-        for (int i = 0; i<arr.length; i++){
-            for (int j=0;j<arr[i].length; j++){
-                System.out.print("[" + arr[i][j] + "]");
+    static void print (int[][] arr, boolean flush) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", true));
+        if (flush){
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < arr[i].length; j++) {
+                    bw.write("[" + arr[i][j] + "]");
+                }
+                bw.newLine();
             }
-            System.out.println();
+            bw.newLine();
+            bw.flush();
+        }
+        else {
+            for (int i = 0; i < arr.length; i++) {
+                for (int j = 0; j < arr[i].length; j++) {
+                    System.out.print("[" + arr[i][j] + "]");
+                }
+                System.out.println();
+            }
         }
     }
+
 
     static int maxNumber (int [][] arr){
         int max = 0;
@@ -58,7 +75,7 @@ public class Arrays {
     }
 
     static String getCell (int [][] arr){
-        int cell = 0;
+        int cell;
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter number of row: ");
         int a = scanner.nextInt();

@@ -1,5 +1,7 @@
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Main extends Arrays {
@@ -9,20 +11,20 @@ public class Main extends Arrays {
         final File dataFile = new File("data.txt");
         final File outputFile = new File("output.txt");
         Scanner scanner = new Scanner(System.in);
+        ArrayList<String> lines = new ArrayList<>();
+        String readStr;
         int[][] arr;
 
 
         // полуинтерактивный, результаты в консоль
         if (inputFile.exists()){
-            ArrayList<String> lines = new ArrayList<>();
+            FileInputStream fileInputStream = new FileInputStream(inputFile);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
             try{
-                FileInputStream fileInputStream = new FileInputStream(inputFile);
-                BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
-                String readStr;
-
                 while ((readStr = br.readLine()) != null){
                     lines.add(readStr);
                 }
+                System.out.println("Array was read from 'input.txt' file");
             }
             catch (IOException ex){
                 System.out.println("An error occured while reading the file: " + inputFile);
@@ -33,12 +35,49 @@ public class Main extends Arrays {
         }
         // неинтерактивный, результаты в output.txt
         else if (dataFile.exists()){
-            System.out.println("data file exists");
+            FileInputStream fileInputStream = new FileInputStream(dataFile);
+            BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
+            BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, true));
+            try{
+                while ((readStr = br.readLine()) != null){
+                    lines.add(readStr);
+                }
+            }
+            catch (IOException ex){
+                System.out.println("An error occured while reading the file: " + inputFile);
+            }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            bw.newLine();
+            bw.write("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            bw.newLine();
+            bw.write(format.format(new Date()));
+            bw.newLine();
+            bw.flush();
+            arr = fillArray(lines, lines.size(), getColumns(lines));
+            print(arr,true);
+            bw.write("Sorted array");
+            bw.newLine();
+            bw.flush();
+            print(sort(arr), true);
+            bw.write("The size of array is " + arr.length + "x" + arr[1].length);
+            bw.newLine();
+            bw.write("Max number is - " + maxNumber(arr));
+            bw.newLine();
+            bw.write("Min number is - " + minNumber(arr));
+            bw.newLine();
+            bw.write("Sum of elements: " + getSumOfArray(arr));
+            bw.newLine();
+            bw.write("Even elements: " + getEven(arr).toString());
+            bw.newLine();
+            bw.write("Odd elements: " + getOdd(arr).toString());
+            bw.flush();
+
+
+
         }
         // интерактивный данные в консоль вводятся, выводятся туда же
         else
         {
-            System.out.println("");
             System.out.print("Input numbers of rows: ");
             int a = scanner.nextInt();
             System.out.print("Input numbers of columns: ");
@@ -59,7 +98,7 @@ public class Main extends Arrays {
     }
 
 
-    private static void getMenu(Scanner scanner, int[][] arr){
+    private static void getMenu(Scanner scanner, int[][] arr) throws IOException {
         System.out.println("Enter operation number : \n 0. - Exit \n 1. - Print \n 2. - Sort and Print \n 3. - Dimension of array \n 4. - Max and Min numbers in array " +
                 "\n 5. - Get cell \n 6. - Get sum of array \n 7. - Get even elements \n 8. - Get odd elements ");
 
@@ -68,13 +107,13 @@ public class Main extends Arrays {
             answr = scanner.nextLine();
             switch (answr) {
                 case "1":
-                    print(arr);
+                    print(arr,false);
                     break;
                 case "2":
-                    print(sort(arr));
+                    print(sort(arr),false);
                     break;
                 case "3":
-                    System.out.println("Dimension is " + arr.length + "x" + arr[1].length);
+                    System.out.println("The size of array is " + arr.length + "x" + arr[1].length);
                     break;
                 case "4":
                     System.out.println("Max number is - " + maxNumber(arr));
@@ -84,7 +123,7 @@ public class Main extends Arrays {
                     System.out.println(getCell(arr));
                     break;
                 case "6":
-                    System.out.println("Sum of array: " + getSumOfArray(arr));
+                    System.out.println("Sum of elements: " + getSumOfArray(arr));
                     break;
                 case "7":
                     System.out.println("Even elements : ");
