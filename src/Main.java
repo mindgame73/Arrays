@@ -59,7 +59,7 @@ public class Main extends Arrays {
             bw.newLine();
             bw.flush();
             print(sort(arr), true);
-            bw.write("The size of array is " + arr.length + "x" + arr[1].length);
+            bw.write("The size of array is " + arr.length + "x" + arr[0].length);
             bw.newLine();
             bw.write("Max number is - " + maxNumber(arr));
             bw.newLine();
@@ -71,9 +71,6 @@ public class Main extends Arrays {
             bw.newLine();
             bw.write("Odd elements: " + getOdd(arr).toString());
             bw.flush();
-
-
-
         }
         // интерактивный данные в консоль вводятся, выводятся туда же
         else
@@ -113,7 +110,7 @@ public class Main extends Arrays {
                     print(sort(arr),false);
                     break;
                 case "3":
-                    System.out.println("The size of array is " + arr.length + "x" + arr[1].length);
+                    System.out.println("The size of array is " + arr.length + "x" + arr[0].length);
                     break;
                 case "4":
                     System.out.println("Max number is - " + maxNumber(arr));
@@ -135,7 +132,8 @@ public class Main extends Arrays {
                     getOdd(arr).forEach(x -> System.out.print(x.toString() + " "));
                     System.out.println();
                     break;
-                case "0":
+                case "":
+                case "0" :
                     break;
                 default:
                     System.out.println("Invalid operation");
