@@ -6,22 +6,19 @@ import java.util.Scanner;
 
 public class Arrays {
 
-    static int[][] sort (int[][] arr) {
-        boolean isSorted = false;
-        int buf;
-        while (!isSorted) {
-            isSorted = true;
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = 0; j < arr[i].length-1; j++) {
-
-                    if (arr[i][j] > arr[i][j+1]) {
-                        isSorted = false;
-
-                        buf = arr[i][j];
-                        arr[i][j] = arr[i][j+1];
-                        arr[i][j+1] = buf;
-
-                    }
+    static int[][] sort (int [][] arr){
+        int temp;
+        int le = arr.length;
+        int w = arr[0].length;
+        for(int i = 0; i < le; i++) {
+            for(int j = 0; j < w; j++) {
+                for(int k = 0; k < le; k++) {
+                    for(int l = 0; l < w; l++)
+                        if(arr[i][j] < arr[k][l]) {
+                            temp = arr[i][j];
+                            arr[i][j] = arr[k][l];
+                            arr[k][l] = temp;
+                        }
                 }
             }
         }
