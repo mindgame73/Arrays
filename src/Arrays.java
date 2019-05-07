@@ -25,7 +25,6 @@ public class Arrays {
         return arr;
     }
 
-
     static void print (int[][] arr, boolean flush) throws IOException {
         BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", true));
         if (flush){
@@ -94,7 +93,6 @@ public class Arrays {
             for (int j=0;j<arr[i].length; j++){
                 sum+= arr[i][j];
             }
-
         }
         return sum;
     }
@@ -105,7 +103,6 @@ public class Arrays {
             for (int j=0;j<arr[i].length; j++){
                 if (arr[i][j] % 2 == 0) listEven.add(arr[i][j]);
             }
-
         }
         return listEven;
     }
@@ -116,7 +113,6 @@ public class Arrays {
             for (int j=0;j<arr[i].length; j++){
                 if (arr[i][j] % 2 != 0) listOdd.add(arr[i][j]);
             }
-
         }
         return listOdd;
     }
