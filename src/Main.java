@@ -2,6 +2,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main extends Arrays {
@@ -22,15 +23,23 @@ public class Main extends Arrays {
             BufferedReader br = new BufferedReader(new InputStreamReader(fileInputStream));
             try{
                 while ((readStr = br.readLine()) != null){
-                    lines.add(readStr);
+                    if (!readStr.trim().equals(""))
+                        lines.add(readStr);
                 }
                 System.out.println("Array was read from 'input.txt' file");
             }
             catch (IOException ex){
                 System.out.println("An error occured while reading the file: " + inputFile);
             }
-            arr = fillArray(lines, lines.size(), getColumns(lines));
-            getMenu(scanner, arr);
+
+            try {
+                arr = fillArray(lines, lines.size(), getColumns(lines));
+                getMenu(scanner, arr);
+            }
+            catch (NumberFormatException ex){
+                System.out.println("There was a problem while reading not number value in file! Please check input.txt file");
+            }
+
 
         }
         // неинтерактивный, результаты в output.txt
@@ -40,7 +49,8 @@ public class Main extends Arrays {
             BufferedWriter bw = new BufferedWriter(new FileWriter(outputFile, true));
             try{
                 while ((readStr = br.readLine()) != null){
-                    lines.add(readStr);
+                    if (!readStr.trim().equals(""))
+                        lines.add(readStr);
                 }
             }
             catch (IOException ex){
@@ -53,31 +63,39 @@ public class Main extends Arrays {
             bw.write(format.format(new Date()));
             bw.newLine();
             bw.flush();
-            arr = fillArray(lines, lines.size(), getColumns(lines));
-            print(arr,true);
-            bw.write("Sorted array");
-            bw.newLine();
-            bw.flush();
-            print(sort(arr), true);
-            bw.write("The size of array is " + arr.length + "x" + arr[0].length);
-            bw.newLine();
-            bw.write("Max number is - " + maxNumber(arr));
-            bw.newLine();
-            bw.write("Min number is - " + minNumber(arr));
-            bw.newLine();
-            bw.write("Sum of elements: " + getSumOfArray(arr));
-            bw.newLine();
-            bw.write("Even elements: " + getEven(arr).toString());
-            bw.newLine();
-            bw.write("Odd elements: " + getOdd(arr).toString());
-            bw.flush();
+            try {
+                arr = fillArray(lines, lines.size(), getColumns(lines));
+                print(arr,true);
+                bw.write("Sorted array");
+                bw.newLine();
+                bw.flush();
+                print(sort(arr), true);
+                bw.write("The size of array is " + arr.length + "x" + arr[0].length);
+                bw.newLine();
+                bw.write("Max number is - " + maxNumber(arr));
+                bw.newLine();
+                bw.write("Min number is - " + minNumber(arr));
+                bw.newLine();
+                bw.write("Sum of elements: " + getSumOfArray(arr));
+                bw.newLine();
+                bw.write("Even elements: " + getEven(arr).toString());
+                bw.newLine();
+                bw.write("Odd elements: " + getOdd(arr).toString());
+                bw.flush();
+            }
+            catch (NumberFormatException ex){
+                bw.write("There was a problem while reading not number value in file! Please check data.txt file");
+                bw.flush();
+            }
+
         }
         // интерактивный данные в консоль вводятся, выводятся туда же
         else
         {
-            System.out.print("Input numbers of rows: ");
+            System.out.println("Input or data files not found!");
+            System.out.print("Input number of rows: ");
             int a = scanner.nextInt();
-            System.out.print("Input numbers of columns: ");
+            System.out.print("Input number of columns: ");
             int b = scanner.nextInt();
 
             arr = new int[a][b];
@@ -85,7 +103,13 @@ public class Main extends Arrays {
             for (int i = 0; i<arr.length; i++){
                 for (int j=0;j<arr[i].length; j++){
                     System.out.print("[" + i  + "][" + j + "] = ");
-                    arr[i][j] = scanner.nextInt();
+                    try {
+                        arr[i][j] = scanner.nextInt();
+                    }
+                    catch (InputMismatchException ex){
+                        System.out.println("Only numeric values are allowed.");
+                        System.exit(-1);
+                    }
                 }
                 System.out.println();
             }
@@ -159,7 +183,7 @@ public class Main extends Arrays {
                 String[] line = lines.get(i).toString().trim().split(" ");
             for (int j=0;j<arr[i].length; j++){
                 if (j <= line.length-1){
-                    arr[i][j] = Integer.parseInt(line[j]);
+                            arr[i][j] = Integer.parseInt(line[j]);
                 }
             }
         }
