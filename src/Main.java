@@ -170,8 +170,9 @@ public class Main extends Arrays {
     private static int getColumns(ArrayList lines){
         int max = 0;
         for (Object s : lines){
-            if (s.toString().trim().split(" ").length > max)
-                max = s.toString().trim().split(" ").length;
+            String[] line = s.toString().trim().split(" ");
+            if (line.length > max)
+                max = line.length;
         }
         return max;
     }
