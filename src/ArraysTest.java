@@ -32,7 +32,6 @@ public class ArraysTest {
         Assert.assertEquals(expected,actual);
     }
 
-
     @Test
     public void getSumOfArray() {
         int expected = main.getSumOfArray(arr);
@@ -61,5 +60,4 @@ public class ArraysTest {
         }};
         Assert.assertEquals(expected,actual);
     }
-
 }

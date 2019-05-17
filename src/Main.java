@@ -115,7 +115,6 @@ public class Main extends Arrays {
             }
             getMenu(scanner, arr);
         }
-
     }
 
 
@@ -162,7 +161,6 @@ public class Main extends Arrays {
                 default:
                     System.out.println("Invalid operation");
                     break;
-
             }
         }
     }
